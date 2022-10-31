@@ -1,0 +1,46 @@
+server:
+  port: 7438
+
+# API Registry client configuration
+eureka:
+  instance:
+    hostname: localhost
+    preferIpAddress: false
+    appname: ${spring.application.name}
+    healthCheckUrlPath: /actuator/health
+    statusPageUrlPath: /actuator/info
+    nonSecurePort: ${server.port}
+    metadata-map:
+      public: true
+      role: live
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/registry/eureka/
+
+# Configure Internal JWT handler
+sso:
+  jwt:
+    internal:
+      signature:
+        key:
+          type: ENV
+          value: SIG_SECRET_KEY
+
+# Spring health monitoring
+management:
+  health:
+    jms:
+     enabled: false
+
+logging:
+  level:
+    com.backbase: DEBUG
+
+centrix:
+  baseUrl: https://ppay.myvirtualbranch.com/<BANK_ID>/Pages
+  systemIdCode: secret
+  enableMocks: true
+  encryption:
+    enabled: true
+    encryptionKey: secret
+    initializationVector: secret

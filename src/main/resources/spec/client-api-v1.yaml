@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: Centrix Client API Spec
+  description: Specs for Centrix Client API
+  version: 1.0.0
+  x-icon: credit_card
+
+servers:
+  - description: local test
+    url: http://localhost:8080/api/v1
+
+tags:
+  - name: Retail
+
+paths:
+
+  /client-api/v1/centrix/single-sign-on:
+    description: Initiates a single-sign-on request to Centrix
+    get:
+      summary: Initiates a single-sign-on request to Centrix
+      description: Initiates a single-sign-on request to Centrix
+      operationId: doSingleSignOn
+      parameters:
+        - in: query
+          name: keepAliveUrl
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/CentrixSingleSignOnResponse'
+          description: A redirect URL to access the Centrix website
+      tags:
+        - centrix
+
+components:
+  schemas:
+    CentrixSingleSignOnResponse:
+      $ref: schemas/body/centrix-single-sign-on-response.json
